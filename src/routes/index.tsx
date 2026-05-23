@@ -1011,7 +1011,6 @@ function SettingsTab({ alertDays, setAlertDays, notifPermission, requestNotif, e
               <p className="text-xs" style={{ color: "var(--slate-500)" }}>ייבא לקוחות מקובץ Excel למערכת</p>
             </div>
           </div>
-          <>
           <input
                         ref={excelInputRef}
                         type="file"
@@ -1030,7 +1029,6 @@ function SettingsTab({ alertDays, setAlertDays, notifPermission, requestNotif, e
                       >
                       <Upload className="w-4 h-4" /> בחר קובץ Excel
           </button>
-</>
         </Card>
 
         <PasswordCard />
