@@ -14,90 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
-      admin_settings: {
+      app_settings: {
         Row: {
-          google_sheet_id: string | null
-          google_sheet_tab: string | null
-          id: number
-          password_hash: string | null
+          key: string
           updated_at: string
+          value: string
         }
         Insert: {
-          google_sheet_id?: string | null
-          google_sheet_tab?: string | null
-          id?: number
-          password_hash?: string | null
+          key: string
           updated_at?: string
+          value: string
         }
         Update: {
-          google_sheet_id?: string | null
-          google_sheet_tab?: string | null
-          id?: number
-          password_hash?: string | null
+          key?: string
           updated_at?: string
+          value?: string
         }
         Relationships: []
       }
-      bookings: {
+      customers: {
         Row: {
-          command: string
-          course_number: string | null
+          address: string | null
+          amount: number | null
           created_at: string
-          end_date: string
-          full_name: string
+          customer_follow_up: string | null
+          device_follow_up: string | null
+          device_type: string | null
+          home_phone: string | null
           id: string
-          id_number: string
-          instructor_name: string | null
-          location: string
+          id_number: string | null
+          item: string | null
+          last_contacted_at: string | null
+          mask_type: string | null
+          name: string
           notes: string | null
-          participants_count: number
-          phone: string
-          reference_number: string
-          start_date: string
-          status: Database["public"]["Enums"]["booking_status"]
-          unit: string
-          unit_location: string
+          phone: string | null
+          purchase_date: string | null
           updated_at: string
+          user_id: string | null
         }
         Insert: {
-          command: string
-          course_number?: string | null
+          address?: string | null
+          amount?: number | null
           created_at?: string
-          end_date: string
-          full_name: string
+          customer_follow_up?: string | null
+          device_follow_up?: string | null
+          device_type?: string | null
+          home_phone?: string | null
           id?: string
-          id_number: string
-          instructor_name?: string | null
-          location: string
+          id_number?: string | null
+          item?: string | null
+          last_contacted_at?: string | null
+          mask_type?: string | null
+          name: string
           notes?: string | null
-          participants_count: number
-          phone: string
-          reference_number?: string
-          start_date: string
-          status?: Database["public"]["Enums"]["booking_status"]
-          unit: string
-          unit_location: string
+          phone?: string | null
+          purchase_date?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
-          command?: string
-          course_number?: string | null
+          address?: string | null
+          amount?: number | null
           created_at?: string
-          end_date?: string
-          full_name?: string
+          customer_follow_up?: string | null
+          device_follow_up?: string | null
+          device_type?: string | null
+          home_phone?: string | null
           id?: string
-          id_number?: string
-          instructor_name?: string | null
-          location?: string
+          id_number?: string | null
+          item?: string | null
+          last_contacted_at?: string | null
+          mask_type?: string | null
+          name?: string
           notes?: string | null
-          participants_count?: number
-          phone?: string
-          reference_number?: string
-          start_date?: string
-          status?: Database["public"]["Enums"]["booking_status"]
-          unit?: string
-          unit_location?: string
+          phone?: string | null
+          purchase_date?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -109,12 +103,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      booking_status:
-        | "pending"
-        | "approved"
-        | "scheduled"
-        | "completed"
-        | "cancelled"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
@@ -241,14 +230,6 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {
-      booking_status: [
-        "pending",
-        "approved",
-        "scheduled",
-        "completed",
-        "cancelled",
-      ],
-    },
+    Enums: {},
   },
 } as const

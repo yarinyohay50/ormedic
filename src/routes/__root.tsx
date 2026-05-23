@@ -1,6 +1,15 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Outlet,
+  Link,
+  createRootRouteWithContext,
+  useRouter,
+  HeadContent,
+  Scripts,
+} from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { PasswordGate } from "@/components/PasswordGate";
 
 function NotFoundComponent() {
   return (
@@ -24,40 +33,69 @@ function NotFoundComponent() {
   );
 }
 
-export const Route = createRootRoute({
+function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+  console.error(error);
+  const router = useRouter();
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          This page didn't load
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Something went wrong on our end. You can try refreshing or head back home.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          <button
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Try again
+          </button>
+          <a
+            href="/"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Go home
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "הזמנת קורסי נהיגה מונעת" },
-      { name: "description", content: "הזמינו קורס נהיגה מונעת מקצועי בקלות. מדריכים מוסמכים, חוויית לימוד מתקדמת, וזמינות גבוהה ברחבי הארץ." },
-      { name: "author", content: "דרך בטוחה" },
-      { property: "og:title", content: "הזמנת קורסי נהיגה מונעת" },
-      { property: "og:description", content: "הזמינו קורס נהיגה מונעת מקצועי בקלות. מדריכים מוסמכים, חוויית לימוד מתקדמת, וזמינות גבוהה ברחבי הארץ." },
+      { title: "ניהול לקוחות" },
+      { name: "description", content: "מערכת ניהול לקוחות ומעקב חזרה ללקוח" },
+      { property: "og:title", content: "ניהול לקוחות" },
+      { property: "og:description", content: "מערכת ניהול לקוחות ומעקב חזרה ללקוח" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "הזמנת קורסי נהיגה מונעת" },
-      { name: "twitter:description", content: "הזמינו קורס נהיגה מונעת מקצועי בקלות. מדריכים מוסמכים, חוויית לימוד מתקדמת, וזמינות גבוהה ברחבי הארץ." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/26b6bcfe-5aad-4073-9559-3d00cb18f6f9/id-preview-bf98ef4c--f9f89579-b92d-40d0-a76e-83e39aeb54c4.lovable.app-1777021793965.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/26b6bcfe-5aad-4073-9559-3d00cb18f6f9/id-preview-bf98ef4c--f9f89579-b92d-40d0-a76e-83e39aeb54c4.lovable.app-1777021793965.png" },
+      { name: "twitter:title", content: "ניהול לקוחות" },
+      { name: "twitter:description", content: "מערכת ניהול לקוחות ומעקב חזרה ללקוח" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f2dadca7-1b6d-4b2e-b66c-3f1a20ea6973/id-preview-1cf954a1--d98fea4e-2366-409a-837a-e80edb5ba1bc.lovable.app-1778776408683.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f2dadca7-1b6d-4b2e-b66c-3f1a20ea6973/id-preview-1cf954a1--d98fea4e-2366-409a-837a-e80edb5ba1bc.lovable.app-1778776408683.png" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" },
-      { rel: "icon", type: "image/png", href: "/favicon.png" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-      { rel: "manifest", href: "/manifest.webmanifest" },
     ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
+  errorComponent: ErrorComponent,
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
@@ -75,5 +113,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  const { queryClient } = Route.useRouteContext();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <PasswordGate>
+        <Outlet />
+      </PasswordGate>
+    </QueryClientProvider>
+  );
 }
