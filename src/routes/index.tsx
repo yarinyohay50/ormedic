@@ -1000,6 +1000,31 @@ function SettingsTab({ alertDays, setAlertDays, notifPermission, requestNotif, e
           </button>
         </Card>
 
+        <Card>
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-xl bg-[oklch(0.95_0.06_240)] grid place-items-center">
+              <Upload className="w-5 h-5 text-[oklch(0.5_0.18_240)]" />
+            </div>
+            <div>
+              <h3 className="font-bold" style={{ color: "var(--slate-900)" }}>העלאת קובץ Excel</h3>
+              <p className="text-xs" style={{ color: "var(--slate-500)" }}>ייבא לקוחות מקובץ Excel למערכת</p>
+            </div>
+          </div>
+          <label className="w-full bg-[oklch(0.5_0.18_240)] text-white py-3 rounded-xl font-medium shadow-lg shadow-[oklch(0.5_0.18_240)]/20 flex items-center justify-center gap-2 cursor-pointer">
+            <Upload className="w-4 h-4" /> בחר קובץ Excel
+            <input
+              type="file"
+              accept=".xlsx,.xls"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) importExcel(f);
+                e.target.value = "";
+              }}
+            />
+          </label>
+        </Card>
+
         <PasswordCard />
 
         <Card>
