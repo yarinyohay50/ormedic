@@ -1,0 +1,1 @@
+UPDATE public.customers SET customer_follow_up = NULL WHERE customer_follow_up IS NOT NULL AND purchase_date IS NOT NULL AND EXTRACT(DAY FROM customer_follow_up) = EXTRACT(DAY FROM purchase_date) AND EXTRACT(MONTH FROM customer_follow_up) = EXTRACT(MONTH FROM purchase_date);
