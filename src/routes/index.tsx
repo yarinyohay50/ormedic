@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { CustomerRow } from "@/lib/customerSchema";
 import { CustomerForm } from "@/components/CustomerForm";
 import { getStoredPassword, setStoredPassword, logout } from "@/components/PasswordGate";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo.jpeg"
 import logo2 from "@/assets/logo2.jpeg";
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
@@ -1015,7 +1015,7 @@ function SettingsTab({ alertDays, setAlertDays, notifPermission, requestNotif, e
             <input
               type="file"
               accept=".xlsx,.xls"
-              className="hidden"
+              className="sr-only"
               onChange={(e) => {
                 const f = e.target.files?.[0];
                 if (f) importExcel(f);
