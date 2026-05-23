@@ -1,10 +1,10 @@
-import { defineConfig } from "@tanstack/react-start/config";
+import { defineConfig } from "@tanstack/start/config";
 
 export default defineConfig({
-      tsr: {
-              appDirectory: "src",
-      },
-      server: {
-              preset: "cloudflare-worker",
-      },
+        tsr: {
+                  appDirectory: "src",
+        },
+        server: {
+                  preset: "cloudflare-worker",
+        },
 });
