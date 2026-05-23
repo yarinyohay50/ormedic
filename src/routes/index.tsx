@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import {
   Search, Phone, MapPin, Calendar, Package, Bell, X, IdCard,
   ChevronLeft, LayoutGrid, Users, Settings as SettingsIcon, MessageCircle, Wallet,
@@ -124,6 +124,7 @@ function Index() {
   const [alertDays, _setAlertDays] = useState<number>(5);
   const setAlertDays = (_: number) => _setAlertDays(5); // קבוע 5 ימים
   const [notifPermission, setNotifPermission] = useState<string>("default");
+    const excelInputRef = useRef<HTMLInputElement>(null);
 
   const load = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true); else setLoading(true);
@@ -1010,19 +1011,26 @@ function SettingsTab({ alertDays, setAlertDays, notifPermission, requestNotif, e
               <p className="text-xs" style={{ color: "var(--slate-500)" }}>ייבא לקוחות מקובץ Excel למערכת</p>
             </div>
           </div>
-          <label className="w-full bg-[oklch(0.5_0.18_240)] text-white py-3 rounded-xl font-medium shadow-lg shadow-[oklch(0.5_0.18_240)]/20 flex items-center justify-center gap-2 cursor-pointer">
-            <Upload className="w-4 h-4" /> בחר קובץ Excel
-            <input
-              type="file"
-              accept=".xlsx,.xls"
-              className="sr-only"
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                if (f) importExcel(f);
-                e.target.value = "";
-              }}
-            />
-          </label>
+<>
+          <input
+                        ref={excelInputRef}
+                        type="file"
+                        accept=".xlsx,.xls"
+                        style={{ display: 'none' }}
+                        onChange={(e) => {
+                                        const f = e.target.files?.[0];
+                                        if (f) importExcel(f);
+                                        e.target.value = "";
+                        }}
+                      />
+          <button
+                        type="button"
+                        onClick={() => excelInputRef.current?.click()}
+                        className="w-full bg-[oklch(0.5_0.18_240)] text-white py-3 rounded-xl font-medium shadow-lg shadow-[oklch(0.5_0.18_240)]/20 flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                      <Upload className="w-4 h-4" /> בחר קובץ Excel
+          </button>button>
+</>></>
         </Card>
 
         <PasswordCard />
