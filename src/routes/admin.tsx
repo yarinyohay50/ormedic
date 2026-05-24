@@ -45,7 +45,7 @@ import {
   adminDeleteBooking,
   adminChangePassword,
   adminGetSheetUrl,
-} from "@/server/bookings.functions";
+} from "@/lib/bookings.functions";
 import { STATUS_LABELS, type Booking, type BookingStatus } from "@/lib/military";
 
 
