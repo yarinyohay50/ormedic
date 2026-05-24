@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { z } from "zod";
-import { appendBookingToSheet, getSheetUrl } from "./sheets-sync.server";
+import { appendBookingToSheet, getSheetUrl } from "@/server/sheets-sync.server";
 
 const BookingInput = z.object({
   full_name: z.string().trim().min(2).max(100),
